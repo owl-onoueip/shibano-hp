@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>柴野高之 - SHIBANO TAKAYUKI | 草加の未来を、切り拓く。</title>
+    <title>しばの - SHIBANO | 草加の未来を、切り拓く。</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Premium Fonts: Shippori Mincho for impact, Noto Sans for readability -->
@@ -19,10 +19,36 @@
 
 <body class="winning-theme">
 
+    <!-- Password Gate -->
+    <div id="password-gate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#1e3a8a;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+        <div style="text-align:center;color:white;">
+            <p style="font-family:'Shippori Mincho',serif;letter-spacing:0.2em;font-size:1.2rem;margin-bottom:30px;opacity:0.8;">SHIBANO TAKAYUKI</p>
+            <input id="pw-input" type="password" placeholder="パスワードを入力" style="padding:14px 24px;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.1);color:white;border-radius:50px;font-size:1rem;text-align:center;outline:none;width:260px;">
+            <p id="pw-error" style="color:#f97316;margin-top:12px;font-size:0.85rem;min-height:20px;"></p>
+            <button onclick="checkPassword()" style="background:#f97316;color:white;border:none;padding:14px 40px;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;">入る</button>
+        </div>
+    </div>
+    <script>
+        (function(){
+            if(sessionStorage.getItem('shibano_auth')==='ok'){
+                document.getElementById('password-gate').style.display='none';
+            }
+        })();
+        function checkPassword(){
+            if(document.getElementById('pw-input').value==='pass1234'){
+                sessionStorage.setItem('shibano_auth','ok');
+                document.getElementById('password-gate').style.display='none';
+            } else {
+                document.getElementById('pw-error').textContent='パスワードが違います';
+            }
+        }
+        document.addEventListener('keydown',function(e){if(e.key==='Enter')checkPassword();});
+    </script>
+
     <!-- Loading Screen -->
     <div id="loader">
         <div class="loader-content">
-            <span class="loader-text">SHIBANO TAKAYUKI</span>
+            <span class="loader-text">SHIBANO</span>
             <div class="loader-bar"></div>
         </div>
     </div>
@@ -57,9 +83,8 @@
         <!-- Impact Hero Section -->
         <section class="hero-section">
             <div class="hero-bg-parallax">
-                <!-- Using a darker, more powerful placeholder -->
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1920"
-                    alt="Background" class="hero-img">
+                <!-- Custom Ghibli-style Soka Matsubara Image -->
+                <img src="images/hero_matsubara_mini_lively.png" alt="草加松原 朝の風景" class="hero-img">
                 <div class="hero-overlay"></div>
             </div>
             <div class="container hero-container">
@@ -75,7 +100,7 @@
                             <span class="btn-text">政策を見る</span>
                             <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
                         </a>
-                        <a href="https://youtu.be/" target="_blank" class="btn-hero-video">
+                        <a href="activity.html" class="btn-hero-video">
                             <i class="fas fa-play"></i> メッセージ動画
                         </a>
                     </div>
@@ -124,22 +149,22 @@
                 <div class="news-item" data-aos="fade-left" data-aos-delay="100">
                     <span class="date">REPORT</span>
                     <span class="cat cat-report">企業訪問</span>
-                    <a href="#" class="title">野球グローブ製造「(株)ジュテルレザー」様を訪問。地場産業の未来を語る。</a>
+                    <a href="activity.html#juteru" class="title">野球グローブ製造「(株)ジュテルレザー」様を訪問。地場産業の未来を語る。</a>
                 </div>
                 <div class="news-item" data-aos="fade-left" data-aos-delay="200">
                     <span class="date">REPORT</span>
                     <span class="cat cat-report">企業訪問</span>
-                    <a href="#" class="title">「Excite Sport Gym」訪問。スポーツを通じた人づくりと地域活性化について。</a>
+                    <a href="activity.html#esg" class="title">「Excite Sport Gym」訪問。スポーツを通じた人づくりと地域活性化について。</a>
                 </div>
                 <div class="news-item" data-aos="fade-left" data-aos-delay="300">
                     <span class="date">REPORT</span>
                     <span class="cat cat-report">地域連携</span>
-                    <a href="#" class="title">古刹「泉蔵院」様を訪問。歴史と文化が息づくまちづくりへ。</a>
+                    <a href="activity.html#senzoin" class="title">古刹「泉蔵院」様を訪問。歴史と文化が息づくまちづくりへ。</a>
                 </div>
                 <div class="news-item" data-aos="fade-left" data-aos-delay="400">
                     <span class="date">REPORT</span>
                     <span class="cat cat-report">広域連携</span>
-                    <a href="#" class="title">野田市・鈴木有市長を訪問。自治体の枠を超えた連携を模索。</a>
+                    <a href="activity.html#noda" class="title">野田市・鈴木有市長を訪問。自治体の枠を超えた連携を模索。</a>
                 </div>
             </div>
         </section>
@@ -201,7 +226,7 @@
                 <div class="profile-wrapper">
                     <div class="profile-img-col" data-aos="fade-right">
                         <!-- Placeholder: Needs a friendly photo -->
-                        <img src="images/uploads/shibano2.gif" alt="柴野高之">
+                        <img src="images/uploads/shibano2.gif" alt="しばの">
                     </div>
                     <div class="profile-text-col" data-aos="fade-left">
                         <h2>PROFILE<span class="jp">プロフィール</span></h2>
@@ -239,6 +264,34 @@
             </div>
         </section>
 
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-heading text-center" data-aos="fade-up">
+                    CONTACT <span class="jp">お問合せ</span>
+                </h2>
+                <div class="contact-wrapper" data-aos="fade-up" data-aos-delay="100">
+                    <form class="contact-form" action="mailto:info@shibano.info" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <label>お名前</label>
+                            <input type="text" name="name" placeholder="山田 太郎" required>
+                        </div>
+                        <div class="form-group">
+                            <label>メールアドレス</label>
+                            <input type="email" name="email" placeholder="example@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>メッセージ</label>
+                            <textarea name="message" rows="6" placeholder="ご意見・ご質問をお聞かせください" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            送信する <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
         <!-- Footer / Call to Action -->
         <footer class="site-footer">
             <div class="cta-banner">
@@ -258,7 +311,7 @@
                 <div class="container">
                     <div class="footer-grid">
                         <div class="col-logo">
-                            <h3>柴野高之 後援会事務所</h3>
+                            <h3>しばの 後援会事務所</h3>
                             <p>〒340-0000 埼玉県草加市〇〇町1-2-3</p>
                             <p>TEL: 048-000-0000 / FAX: 048-000-0000</p>
                         </div>
@@ -273,7 +326,7 @@
                         </div>
                     </div>
                     <div class="copyright">
-                        &copy; Shibano Takayuki.
+                        &copy; Shibano.
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>柴野高之 - SHIBANO TAKAYUKI | 草加の未来を、切り拓く。</title>
+    <title>しばの - SHIBANO | 草加の未来を、切り拓く。</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Premium Fonts: Shippori Mincho for impact, Noto Sans for readability -->
@@ -19,10 +19,36 @@
 
 <body class="winning-theme">
 
+    <!-- Password Gate -->
+    <div id="password-gate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#1e3a8a;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+        <div style="text-align:center;color:white;">
+            <p style="font-family:'Shippori Mincho',serif;letter-spacing:0.2em;font-size:1.2rem;margin-bottom:30px;opacity:0.8;">SHIBANO TAKAYUKI</p>
+            <input id="pw-input" type="password" placeholder="パスワードを入力" style="padding:14px 24px;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.1);color:white;border-radius:50px;font-size:1rem;text-align:center;outline:none;width:260px;">
+            <p id="pw-error" style="color:#f97316;margin-top:12px;font-size:0.85rem;min-height:20px;"></p>
+            <button onclick="checkPassword()" style="background:#f97316;color:white;border:none;padding:14px 40px;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;">入る</button>
+        </div>
+    </div>
+    <script>
+        (function(){
+            if(sessionStorage.getItem('shibano_auth')==='ok'){
+                document.getElementById('password-gate').style.display='none';
+            }
+        })();
+        function checkPassword(){
+            if(document.getElementById('pw-input').value==='pass1234'){
+                sessionStorage.setItem('shibano_auth','ok');
+                document.getElementById('password-gate').style.display='none';
+            } else {
+                document.getElementById('pw-error').textContent='パスワードが違います';
+            }
+        }
+        document.addEventListener('keydown',function(e){if(e.key==='Enter')checkPassword();});
+    </script>
+
     <!-- Loading Screen -->
     <div id="loader">
         <div class="loader-content">
-            <span class="loader-text">SHIBANO TAKAYUKI</span>
+            <span class="loader-text">SHIBANO</span>
             <div class="loader-bar"></div>
         </div>
     </div>
@@ -68,7 +94,7 @@
                 <div class="archive-grid">
 
                     <!-- Item 1: JUTERU LEATHER -->
-                    <div class="archive-card" data-aos="fade-up">
+                    <div id="juteru" class="archive-card" data-aos="fade-up">
                         <div class="video-wrapper">
                             <iframe src="https://player.vimeo.com/video/251745507" frameborder="0"
                                 allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -80,7 +106,7 @@
                     </div>
 
                     <!-- Item 2: E.S.G -->
-                    <div class="archive-card" data-aos="fade-up" data-aos-delay="100">
+                    <div id="esg" class="archive-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="video-wrapper">
                             <iframe src="https://player.vimeo.com/video/235834782" frameborder="0"
                                 allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -93,7 +119,7 @@
                     </div>
 
                     <!-- Item 3: Senzoin -->
-                    <div class="archive-card" data-aos="fade-up" data-aos-delay="200">
+                    <div id="senzoin" class="archive-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="video-wrapper">
                             <iframe src="https://player.vimeo.com/video/226334565" frameborder="0"
                                 allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -105,7 +131,7 @@
                     </div>
 
                     <!-- Item 4: Noda City -->
-                    <div class="archive-card" data-aos="fade-up">
+                    <div id="noda" class="archive-card" data-aos="fade-up">
                         <div class="video-wrapper">
                             <iframe src="https://player.vimeo.com/video/223539477" frameborder="0"
                                 allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -156,7 +182,7 @@
                     <div class="archive-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="image-wrapper">
                             <!-- Placeholder: Would be report_2014_3_2.jpg -->
-                            <img src="https://placehold.co/800x600/2A4B3C/FFF?text=Rikuzentakata+Visit" alt="陸前高田市訪問">
+                            <img src="https://placehold.co/800x600/1e3a8a/FFF?text=Rikuzentakata+Visit" alt="陸前高田市訪問">
                         </div>
                         <div class="archive-card-body">
                             <h3><span class="tag">被災地支援</span> 陸前高田市訪問</h3>
@@ -193,7 +219,7 @@
             <div class="container">
                 <div class="footer-grid">
                     <div class="col-logo">
-                        <h3>柴野高之 後援会事務所</h3>
+                        <h3>しばの 後援会事務所</h3>
                         <p>〒340-0000 埼玉県草加市〇〇町1-2-3</p>
                         <p>TEL: 048-000-0000 / FAX: 048-000-0000</p>
                     </div>
@@ -208,13 +234,11 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    &copy; Shibano Takayuki.
+                    &copy; Shibano.
                 </div>
             </div>
         </div>
     </footer>
-
-    </main>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>

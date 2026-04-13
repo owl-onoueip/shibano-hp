@@ -2,13 +2,11 @@
    Winning Theme - Base
    ========================================================================== */
 :root {
-    /* --c-primary: #0b1c3c; Deep Navy (Cold) */
-    --c-primary: #2A4B3C;
-    /* Forest Green (Warm/Natural) */
+    --c-primary: #1e3a8a;
+    /* Navy Blue (草加自民統一カラー) */
 
-    /* --c-secondary: #b89356; Muted Gold (Cold) */
-    --c-secondary: #D88A45;
-    /* Warm Earth (Sunlight) */
+    --c-secondary: #f97316;
+    /* Orange (草加自民アクセント) */
 
     --c-accent: #c41e3a;
     /* Cardinal Red */
@@ -123,8 +121,9 @@ img {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.site-header.scrolled {
-    background-color: rgba(42, 75, 60, 0.95);
+.site-header.scrolled,
+.menu-active .site-header {
+    background-color: var(--c-primary);
     backdrop-filter: blur(10px);
     height: 70px;
     border-bottom: none;
@@ -218,6 +217,34 @@ img {
 
 .menu-trigger {
     display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2000;
+}
+
+.menu-trigger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--c-white);
+    transition: all 0.3s ease;
+}
+
+.menu-active .menu-trigger span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-active .menu-trigger span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-active .menu-trigger span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
 }
 
 /* ==========================================================================
@@ -260,7 +287,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(42, 75, 60, 0.85) 0%, rgba(60, 50, 40, 0.4) 60%, rgba(216, 138, 69, 0.2) 100%);
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(15, 30, 80, 0.4) 60%, rgba(249, 115, 22, 0.2) 100%);
 }
 
 .hero-container {
@@ -760,16 +787,70 @@ img {
    Responsive
    ========================================================================== */
 @media (max-width: 900px) {
+    .header-container {
+        padding: 0 20px;
+    }
+
     .main-nav {
-        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--c-primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s var(--easing);
+        z-index: 1500;
+    }
+
+    .menu-active .main-nav {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .main-nav a {
+        font-size: 1.5rem;
+        font-family: var(--f-serif);
+    }
+
+    .menu-trigger {
+        display: flex;
     }
 
     .hero-main {
-        font-size: 3rem;
+        font-size: 12vw;
+    }
+
+    .hero-container {
+        padding: 0 20px;
+    }
+
+    .hero-cta-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-hero-primary, .btn-hero-video {
+        justify-content: center;
     }
 
     .vision-box {
         flex-direction: column-reverse;
+        gap: 40px;
+    }
+
+    .section-heading {
+        font-size: 2.2rem;
     }
 
     .policy-grid {
@@ -778,6 +859,7 @@ img {
 
     .profile-wrapper {
         flex-direction: column;
+        gap: 40px;
     }
 
     .cta-container {
@@ -908,4 +990,114 @@ img {
 
 .text-center {
     text-align: center;
+}
+
+/* ==========================================================================
+   Contact Section
+   ========================================================================== */
+.contact-section {
+    padding: 120px 0;
+    background: var(--c-light);
+}
+
+.contact-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 25px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--c-text);
+    letter-spacing: 0.05em;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--f-main);
+    font-size: 1rem;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--c-primary);
+}
+
+.btn-submit {
+    background: var(--c-primary);
+    color: white;
+    border: none;
+    padding: 18px 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: var(--c-secondary);
+    transform: translateX(5px);
+}
+
+/* ==========================================================================
+   Profile Social
+   ========================================================================== */
+.profile-social {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.profile-social a {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-text);
+    transition: all 0.3s ease;
+}
+
+.profile-social a:hover {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+    color: white;
+}
+
+.profile-bio-list dl {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 10px 20px;
+    margin-top: 20px;
+}
+
+.profile-bio-list dt {
+    font-weight: 700;
+    color: var(--c-primary);
+    font-size: 0.9rem;
+}
+
+.profile-bio-list dd {
+    font-size: 0.9rem;
+    color: #555;
 }

@@ -29,19 +29,41 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Mobile Menu Toggle
+    const menuTrigger = document.querySelector('.menu-trigger');
+    const body = document.body;
+    const navLinks = document.querySelectorAll('.main-nav a');
+
+    if (menuTrigger) {
+        menuTrigger.addEventListener('click', function () {
+            body.classList.toggle('menu-active');
+        });
+    }
+
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            body.classList.remove('menu-active');
+        });
+    });
+
     // Smooth Scroll for Anchors
-    document.querySelector('.main-nav').addEventListener('click', function (e) {
-        if (e.target.tagName === 'A' && e.target.getAttribute('href').startsWith('#')) {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const targetId = e.target.getAttribute('href');
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
             const target = document.querySelector(targetId);
 
             if (target) {
+                const headerHeight = document.querySelector('.site-header').offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight;
+
                 window.scrollTo({
-                    top: target.offsetTop,
+                    top: targetPosition,
                     behavior: 'smooth'
                 });
             }
-        }
+        });
     });
 });
