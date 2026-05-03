@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>しばの - 草加市の実績MAP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        #map {
+            width: 100%;
+            height: 600px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .map-section {
+            padding: 40px 0 80px;
+            background: var(--c-white);
+        }
+        .map-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--c-text);
+        }
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .map-note {
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: #f0f4ff;
+            border-left: 4px solid var(--c-primary);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .leaflet-popup-content-wrapper {
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .popup-inner { min-width: 200px; }
+        .popup-cat {
+            display: inline-block;
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: white;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+        .popup-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+        }
+        .popup-year {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 6px;
+        }
+        .popup-desc {
+            font-size: 0.85rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .popup-sv {
+            margin-top: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .popup-sv iframe {
+            display: block;
+            width: 100%;
+            height: 150px;
+            border: 0;
+        }
+        @media (max-width: 900px) {
+            #map { height: 450px; }
+        }
+    </style>
+</head>
+
+<body class="winning-theme">
+
+    <!-- Password Gate -->
+    <div id="password-gate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#1e3a8a;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+        <div style="text-align:center;color:white;">
+            <p style="font-family:'Shippori Mincho',serif;letter-spacing:0.2em;font-size:1.2rem;margin-bottom:30px;opacity:0.8;">SHIBANO</p>
+            <input id="pw-input" type="password" placeholder="パスワードを入力" style="padding:14px 24px;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.1);color:white;border-radius:50px;font-size:1rem;text-align:center;outline:none;width:260px;">
+            <p id="pw-error" style="color:#f97316;margin-top:12px;font-size:0.85rem;min-height:20px;"></p>
+            <button onclick="checkPassword()" style="background:#f97316;color:white;border:none;padding:14px 40px;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;">入る</button>
+        </div>
+    </div>
+    <script>
+        (function(){
+            if(sessionStorage.getItem('shibano_auth')==='ok'){
+                document.getElementById('password-gate').style.display='none';
+            }
+        })();
+        function checkPassword(){
+            if(document.getElementById('pw-input').value==='pass1234'){
+                sessionStorage.setItem('shibano_auth','ok');
+                document.getElementById('password-gate').style.display='none';
+            } else {
+                document.getElementById('pw-error').textContent='パスワードが違います';
+            }
+        }
+        document.addEventListener('keydown',function(e){if(e.key==='Enter')checkPassword();});
+    </script>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-content">
+            <span class="loader-text">SHIBANO</span>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <h1 class="logo">
+                <a href="index.html">
+                    <span class="logo-en">SHIBANO</span>
+                    <span class="logo-jp">しばの勝利</span>
+                </a>
+            </h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html#vision">理念</a></li>
+                    <li><a href="index.html#policy">政策</a></li>
+                    <li><a href="index.html#news">活動</a></li>
+                    <li><a href="map.html" style="color:var(--c-secondary);">実績MAP</a></li>
+                    <li><a href="index.html#profile">プロフィール</a></li>
+                    <li><a href="index.html#contact" class="btn-nav-cta"><span>共に創る</span></a></li>
+                </ul>
+            </nav>
+            <button class="menu-trigger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Hero -->
+        <section class="page-header-section">
+            <div class="container text-center">
+                <h1 class="page-title">ACTIVITY MAP<span class="jp">草加市の実績マップ</span></h1>
+                <p class="page-subtitle">しばのが草加市内で関わってきた案件をマップで確認できます。</p>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+
+                <!-- 凡例 -->
+                <div class="map-legend" data-aos="fade-up">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#1e3a8a;"></div>
+                        <span>市政・行政</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#f97316;"></div>
+                        <span>教育</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#16a34a;"></div>
+                        <span>福祉・医療</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#9333ea;"></div>
+                        <span>スポーツ・文化</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#ca8a04;"></div>
+                        <span>インフラ・まちづくり</span>
+                    </div>
+                </div>
+
+                <div id="map" data-aos="fade-up"></div>
+
+                <div class="map-note">
+                    <i class="fas fa-info-circle" style="color:var(--c-primary);margin-right:8px;"></i>
+                    ピンをクリックすると詳細が表示されます。今後、関わった案件を順次追加していきます。
+                </div>
+
+                <div class="text-center mt-5">
+                    <a href="index.html" class="btn-profile-more">トップページへ戻る</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="cta-banner">
+            <div class="container cta-container">
+                <div class="cta-text">
+                    <h2>JOIN TEAM SHIBANO</h2>
+                    <p>あなたの「参加」が、草加を変える力になる。</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="#" class="btn-cta btn-line"><i class="fa-brands fa-line"></i> LINEで繋がる</a>
+                    <a href="#" class="btn-cta btn-support">後援会に入会する</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="col-logo">
+                        <h3>しばの 後援会事務所</h3>
+                        <p>〒340-0000 埼玉県草加市〇〇町1-2-3</p>
+                        <p>TEL: 048-000-0000 / FAX: 048-000-0000</p>
+                    </div>
+                    <div class="col-links">
+                        <ul>
+                            <li><a href="index.html">ホーム</a></li>
+                            <li><a href="index.html#vision">理念</a></li>
+                            <li><a href="index.html#policy">政策</a></li>
+                            <li><a href="activity.html">活動記録</a></li>
+                            <li><a href="map.html">実績MAP</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">&copy; Shibano.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // ピンデータ（実際の場所・内容はしばのさんに確認の上更新）
+        const pins = [
+            // ── 実績（確認済み） ──
+            {
+                lat: 35.8425, lng: 139.7831,
+                color: '#ca8a04', category: 'インフラ・まちづくり',
+                title: 'バス停付近 歩道整備①',
+                year: '整備済み',
+                desc: 'バス停周辺の歩道を整備。安全な歩行環境の確保と利用者の利便性向上を実現。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777841912629!6m8!1m7!1sNqBOGVTDWb84I_kxO_R4Bw!2m2!1d35.84250364629196!2d139.7831088618012!3f301.10323846470766!4f-7.653495564721453!5f1.8132661007878523'
+            },
+            {
+                lat: 35.8451, lng: 139.7816,
+                color: '#ca8a04', category: 'インフラ・まちづくり',
+                title: 'バス停付近 歩道整備②',
+                year: '整備済み',
+                desc: 'バス停周辺の歩道を整備。安全な歩行環境の確保と利用者の利便性向上を実現。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777842244072!6m8!1m7!1sKOoTOIClt8_WZ7iJC2hAWg!2m2!1d35.84514815006224!2d139.7816102159252!3f214.71040877460948!4f-19.069631134972354!5f0.7820865974627469'
+            },
+            {
+                lat: 35.8401, lng: 139.7843,
+                color: '#ca8a04', category: 'インフラ・まちづくり',
+                title: '桜並木 整備①',
+                year: '整備済み',
+                desc: '道路沿いの桜並木を整備。市民が四季を感じられる美しい街並みづくりに貢献。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777843086359!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ2gtdkhTQXc.!2m2!1d35.84010829479146!2d139.7843199612924!3f4.130127490789282!4f24.65752026304004!5f0.7820865974627469'
+            },
+            {
+                lat: 35.8396, lng: 139.7872,
+                color: '#ca8a04', category: 'インフラ・まちづくり',
+                title: '桜並木 整備②',
+                year: '整備済み',
+                desc: '道路沿いの桜並木を整備。市民が四季を感じられる美しい街並みづくりに貢献。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777843266137!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ2gtdkhLd1FF!2m2!1d35.83963672863598!2d139.7871583358859!3f19.882514861987715!4f15.516961083932898!5f0.7820865974627469'
+            },
+            {
+                lat: 35.8424, lng: 139.7792,
+                color: '#ca8a04', category: 'インフラ・まちづくり',
+                title: '水路整備',
+                year: '整備済み',
+                desc: '地域の水路を整備。排水機能の向上と安全な生活環境づくりに貢献。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777843660855!6m8!1m7!1s_OS_-h0rES6xNwaSadlMBQ!2m2!1d35.84242092391832!2d139.7792019604569!3f352.3664514048823!4f-33.92410779929877!5f0.4000000000000002'
+            },
+            {
+                lat: 35.8336, lng: 139.8061,
+                color: '#9333ea', category: 'スポーツ・文化',
+                title: '参道整備',
+                year: '整備済み',
+                desc: '地域の神社参道を整備。歴史ある参道の環境を守り、地域文化の継承に貢献。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777844248522!6m8!1m7!1sgDCt728-LNTzAvrIswgEsA!2m2!1d35.83357519543627!2d139.8061300580076!3f261.79304241747747!4f-14.368822095272165!5f0.7820865974627469'
+            },
+            {
+                lat: 35.8591, lng: 139.8146,
+                color: '#16a34a', category: '福祉・医療',
+                title: '蒲公英の丘 障害福祉施設 立ち上げ',
+                year: '実現済み',
+                desc: '障がい者支援施設「蒲公英の丘」の立ち上げを支援。地域に根ざした福祉の場を創出。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777844375501!6m8!1m7!1siSjFQYF9SoSdc_x0FQVKWQ!2m2!1d35.85910473311713!2d139.8145781436885!3f61.7017041862338!4f4.483694172317826!5f0.7820865974627469'
+            },
+            {
+                lat: 35.8116, lng: 139.7814,
+                color: '#16a34a', category: '福祉・医療',
+                title: '地域密着型高齢者施設 立ち上げ',
+                year: '実現済み',
+                desc: '地域に根ざした高齢者介護施設の立ち上げを支援。住み慣れた地域で安心して暮らせる環境を整備。',
+                streetview: 'https://www.google.com/maps/embed?pb=!4v1777845175255!6m8!1m7!1sS9ArgToYTPkuITw0HjQMOw!2m2!1d35.81163370023928!2d139.7813607183437!3f245.21318950902165!4f16.22577898146089!5f1.5366184664772655'
+            },
+            // ── 参考（仮データ・要確認） ──
+            {
+                lat: 35.8321, lng: 139.8004,
+                color: '#1e3a8a', category: '市政・行政',
+                title: '草加市新庁舎建設',
+                year: '2023年完成',
+                desc: '分散していた行政機能を一棟に集約。合同庁舎化を議会で推進し、2023年3月引き渡し完了。'
+            },
+            {
+                lat: 35.8270, lng: 139.7930,
+                color: '#16a34a', category: '福祉・医療',
+                title: '草加市立病院 終末医療整備',
+                year: '推進中',
+                desc: '終末医療病棟の整備・緩和ケア体制の構築を推進。救急搬送100%受入れ体制の確立に取り組む。'
+            },
+            {
+                lat: 35.8244, lng: 139.8094,
+                color: '#9333ea', category: 'スポーツ・文化',
+                title: '草加松原 観光・文化活用',
+                year: '推進中',
+                desc: '日本百名道にも選ばれた草加松原の観光資源としての活用を推進。地域の誇りをまちの活力に。'
+            },
+            {
+                lat: 35.8350, lng: 139.8010,
+                color: '#f97316', category: '教育',
+                title: '市立小学校 土曜授業導入',
+                year: '実現済み',
+                desc: '土曜授業（年5回）と夏休み3日短縮で授業時間を確保。習熟度別学習の導入を推進。'
+            },
+            {
+                lat: 35.8200, lng: 139.8050,
+                color: '#16a34a', category: '福祉・医療',
+                title: '障がい者グループホーム整備',
+                year: '推進中',
+                desc: '障がい者の自立支援として男女別グループホームの建設・入所施設の整備を推進。'
+            },
+            {
+                lat: 35.8400, lng: 139.7950,
+                color: '#9333ea', category: 'スポーツ・文化',
+                title: '硬式野球場 整備検討',
+                year: '要望中',
+                desc: '県内20万人以上の市で唯一硬式野球場がない草加市。市民の声を受け整備を議会で訴え続けている。'
+            }
+        ];
+
+        // カスタムマーカー生成（テアドロップ型）
+        function makeIcon(color) {
+            return L.divIcon({
+                html: `<svg width="32" height="44" viewBox="0 0 32 44" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 3px 7px rgba(0,0,0,0.45))">
+                    <path d="M16 1C7.72 1 1 7.72 1 16c0 11 15 27 15 27S31 27 31 16C31 7.72 24.28 1 16 1z"
+                          fill="${color}" stroke="white" stroke-width="2.5"/>
+                    <circle cx="16" cy="16" r="6" fill="white"/>
+                </svg>`,
+                className: '',
+                iconSize: [32, 44],
+                iconAnchor: [16, 44],
+                popupAnchor: [0, -46]
+            });
+        }
+
+        // 事務所の位置（要確認・更新）
+        const OFFICE_LAT = 35.8298;
+        const OFFICE_LNG = 139.8033;
+        const HOME_ZOOM = 13;
+
+        // マップ初期化（草加市中心・ズーム制限あり）
+        const map = L.map('map', {
+            minZoom: 12,
+            maxZoom: 15
+        }).setView([OFFICE_LAT, OFFICE_LNG], HOME_ZOOM);
+
+        // 国土地理院標準地図（日本語表示）
+        L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+            attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>',
+            maxZoom: 18
+        }).addTo(map);
+
+        // ホームボタン（事務所位置に戻る）
+        const HomeControl = L.Control.extend({
+            options: { position: 'topleft' },
+            onAdd: function(m) {
+                const btn = L.DomUtil.create('button', 'leaflet-bar leaflet-control');
+                btn.innerHTML = '<i class="fas fa-home"></i>';
+                btn.title = '事務所の位置に戻る';
+                btn.style.cssText = 'width:34px;height:34px;background:white;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;border:none;color:#1e3a8a;';
+                L.DomEvent.on(btn, 'click', function() {
+                    m.setView([OFFICE_LAT, OFFICE_LNG], HOME_ZOOM);
+                });
+                L.DomEvent.disableClickPropagation(btn);
+                return btn;
+            }
+        });
+        new HomeControl().addTo(map);
+
+        // ピン追加
+        pins.forEach(pin => {
+            const svHtml = pin.streetview
+                ? `<div class="popup-sv"><iframe src="${pin.streetview}" allowfullscreen loading="lazy"></iframe></div>`
+                : '';
+            L.marker([pin.lat, pin.lng], { icon: makeIcon(pin.color) })
+                .addTo(map)
+                .bindPopup(`
+                    <div class="popup-inner">
+                        <span class="popup-cat" style="background:${pin.color};">${pin.category}</span>
+                        <div class="popup-title">${pin.title}</div>
+                        <div class="popup-year"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>${pin.year}</div>
+                        <div class="popup-desc">${pin.desc}</div>
+                        ${svHtml}
+                    </div>
+                `, { maxWidth: 300 });
+        });
+    </script>
+</body>
+
+</html>

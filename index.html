@@ -22,7 +22,7 @@
     <!-- Password Gate -->
     <div id="password-gate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#1e3a8a;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
         <div style="text-align:center;color:white;">
-            <p style="font-family:'Shippori Mincho',serif;letter-spacing:0.2em;font-size:1.2rem;margin-bottom:30px;opacity:0.8;">SHIBANO TAKAYUKI</p>
+            <p style="font-family:'Shippori Mincho',serif;letter-spacing:0.2em;font-size:1.2rem;margin-bottom:30px;opacity:0.8;">SHIBANO</p>
             <input id="pw-input" type="password" placeholder="パスワードを入力" style="padding:14px 24px;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.1);color:white;border-radius:50px;font-size:1rem;text-align:center;outline:none;width:260px;">
             <p id="pw-error" style="color:#f97316;margin-top:12px;font-size:0.85rem;min-height:20px;"></p>
             <button onclick="checkPassword()" style="background:#f97316;color:white;border:none;padding:14px 40px;border-radius:50px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;">入る</button>
@@ -67,6 +67,7 @@
                     <li><a href="#vision" data-text="VISION">理念</a></li>
                     <li><a href="#policy" data-text="POLICY">政策</a></li>
                     <li><a href="#news" data-text="NEWS">活動</a></li>
+                    <li><a href="map.html" data-text="MAP">実績MAP</a></li>
                     <li><a href="#profile" data-text="PROFILE">プロフィール</a></li>
                     <li><a href="#contact" class="btn-nav-cta"><span>共に創る</span></a></li>
                 </ul>
@@ -147,16 +148,31 @@
             <div class="news-ticker-container">
                 <!-- Data extracted from report.html -->
                 <div class="news-item" data-aos="fade-left" data-aos-delay="100">
+                    <span class="date">2026.01.01</span>
+                    <span class="cat cat-info">お知らせ</span>
+                    <a href="#" class="title">新年のごあいさつを掲載しました。</a>
+                </div>
+                <div class="news-item" data-aos="fade-left" data-aos-delay="150">
+                    <span class="date">2022.11.07</span>
+                    <span class="cat cat-info">お知らせ</span>
+                    <a href="#" class="title">市議会選挙後のご挨拶を掲載しました。</a>
+                </div>
+                <div class="news-item" data-aos="fade-left" data-aos-delay="200">
+                    <span class="date">2020.11.17</span>
+                    <span class="cat cat-info">市政報告</span>
+                    <a href="#" class="title">新庁舎建設工事の進捗状況概要を掲載しました。</a>
+                </div>
+                <div class="news-item" data-aos="fade-left" data-aos-delay="250">
                     <span class="date">REPORT</span>
                     <span class="cat cat-report">企業訪問</span>
                     <a href="activity.html#juteru" class="title">野球グローブ製造「(株)ジュテルレザー」様を訪問。地場産業の未来を語る。</a>
                 </div>
-                <div class="news-item" data-aos="fade-left" data-aos-delay="200">
+                <div class="news-item" data-aos="fade-left" data-aos-delay="300">
                     <span class="date">REPORT</span>
                     <span class="cat cat-report">企業訪問</span>
                     <a href="activity.html#esg" class="title">「Excite Sport Gym」訪問。スポーツを通じた人づくりと地域活性化について。</a>
                 </div>
-                <div class="news-item" data-aos="fade-left" data-aos-delay="300">
+                <div class="news-item" data-aos="fade-left" data-aos-delay="350">
                     <span class="date">REPORT</span>
                     <span class="cat cat-report">地域連携</span>
                     <a href="activity.html#senzoin" class="title">古刹「泉蔵院」様を訪問。歴史と文化が息づくまちづくりへ。</a>
@@ -186,7 +202,7 @@
                         <div class="card-content">
                             <span class="num">01</span>
                             <h3>教育と未来</h3>
-                            <p>子どもの可能性を、学校だけに閉じ込めない。<br>土曜授業と習熟度別学習で、確かな学力を。</p>
+                            <p>土曜授業・習熟度別学習の実現。<br>部活外部指導・地域クラブ連携で子どもの可能性を広げる。</p>
                             <span class="arrow-icon"><i class="fas fa-arrow-right"></i></span>
                         </div>
                     </a>
@@ -199,7 +215,7 @@
                         <div class="card-content">
                             <span class="num">02</span>
                             <h3>安心と尊厳</h3>
-                            <p>誰もが、最後まで自分らしく。<br>障がい者入所施設と終末医療の充実。</p>
+                            <p>障がい者入所・グループホーム整備。<br>市立病院の終末医療・救急100%受入れ体制の確立。</p>
                             <span class="arrow-icon"><i class="fas fa-arrow-right"></i></span>
                         </div>
                     </a>
@@ -212,7 +228,7 @@
                         <div class="card-content">
                             <span class="num">03</span>
                             <h3>街の活力</h3>
-                            <p>人が集い、賑わう草加へ。<br>硬式野球場の整備と、魅力ある都市計画。</p>
+                            <p>県内唯一不在の硬式野球場整備。<br>草加松原の観光活用と広域合併による将来の地域力維持。</p>
                             <span class="arrow-icon"><i class="fas fa-arrow-right"></i></span>
                         </div>
                     </a>
@@ -243,18 +259,26 @@
                         </p>
                         <div class="profile-bio-list">
                             <dl>
-                                <dt>昭和42年</dt>
-                                <dd>草加生まれ (5月16日)</dd>
+                                <dt>生年月日</dt>
+                                <dd>昭和42年5月16日（草加生まれ）</dd>
+                                <dt>家族</dt>
+                                <dd>妻・子供二人</dd>
                                 <dt>学歴</dt>
-                                <dd>川口東高校卒 / 拓殖大学商学部卒</dd>
+                                <dd>川口市立新郷東小 → 榛松中学校 → 埼玉県立川口東高校 → 拓殖大学商学部卒</dd>
                                 <dt>職歴</dt>
-                                <dd>元草加市議会議長 / (株)ケーエイチ代表取締役</dd>
+                                <dd>usuiレストラン（ロサンゼルス店）/ 衆議院議員 浜田卓二郎事務所 / (株)川島製作所 / 衆議院議員 今井宏 公設秘書</dd>
+                                <dt>議員活動</dt>
+                                <dd>草加市議会議員（約11年）/ 元草加市議会議長</dd>
+                                <dt>社会活動</dt>
+                                <dd>前小山小学校PTA会長 / 草加八潮保護司会副会長 / 障害者福祉施設 理事長代行 / 社団法人埼玉県馬主会 監査</dd>
+                                <dt>現職</dt>
+                                <dd>(株)ケーエイチ 代表取締役</dd>
                             </dl>
                         </div>
-                        <a href="#" class="btn-profile-more">経歴詳細へ</a>
+                        <a href="map.html" class="btn-profile-more">実績MAPを見る</a>
 
                         <div class="profile-social">
-                            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="https://x.com/Ksibano" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-instagram"></i></a>
                             <a href="#"><i class="fa-brands fa-youtube"></i></a>

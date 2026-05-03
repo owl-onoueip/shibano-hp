@@ -540,6 +540,17 @@ img {
     border: 1px solid #ddd;
 }
 
+.cat-info {
+    background: var(--c-primary);
+    color: white !important;
+    border-color: var(--c-primary) !important;
+}
+
+.cat-report {
+    border-color: var(--c-secondary) !important;
+    color: var(--c-secondary) !important;
+}
+
 .news-item .title {
     font-weight: 500;
 }
