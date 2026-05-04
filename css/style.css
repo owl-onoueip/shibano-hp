@@ -1271,3 +1271,100 @@ img {
     background: var(--c-secondary);
     transform: translateY(-2px);
 }
+
+/* ── Archive Link Section ── */
+.archive-link-section {
+    padding: 60px 0;
+    background: #f3f6fd;
+}
+.archive-link-card {
+    background: #0f172a;
+    border-radius: 18px;
+    padding: 48px 56px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    position: relative;
+    overflow: hidden;
+}
+.archive-link-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 12px,
+        rgba(255,255,255,0.015) 12px,
+        rgba(255,255,255,0.015) 24px
+    );
+    pointer-events: none;
+}
+.archive-tape {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    background: #ca8a04;
+    color: white;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.25em;
+    padding: 4px 14px;
+    border-radius: 4px;
+}
+.archive-icon {
+    font-size: 3.5rem;
+    color: rgba(255,255,255,0.12);
+    flex-shrink: 0;
+    line-height: 1;
+}
+.archive-body {
+    flex: 1;
+}
+.archive-title {
+    font-family: var(--f-serif);
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+.archive-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.9;
+    margin-bottom: 28px;
+}
+.btn-archive {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 13px 32px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+}
+.btn-archive:hover {
+    background: var(--c-secondary);
+    border-color: var(--c-secondary);
+    transform: translateY(-2px);
+}
+@media (max-width: 900px) {
+    .archive-link-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 28px;
+        gap: 20px;
+    }
+    .archive-icon { font-size: 2.5rem; }
+    .btn-archive {
+        width: 100%;
+        justify-content: center;
+    }
+}
