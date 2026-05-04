@@ -878,8 +878,64 @@ img {
         gap: 30px;
     }
 
+    /* ニュースセクション */
+    .news-ticker-section {
+        flex-direction: column;
+    }
     .news-ticker-header {
         width: 100%;
+        padding: 20px 24px;
+    }
+    .news-ticker-container {
+        padding: 20px 24px;
+    }
+    .news-item {
+        flex-wrap: wrap;
+        gap: 6px;
+        padding-bottom: 12px;
+        margin-bottom: 4px;
+    }
+    .news-item .date {
+        font-size: 0.8rem;
+        flex-shrink: 0;
+    }
+    .news-item .cat {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    .news-item .title {
+        flex: 1;
+        min-width: 0;
+        font-size: 0.85rem;
+    }
+
+    /* プロフィール略歴グリッド */
+    .profile-bio-list dl {
+        grid-template-columns: 60px 1fr;
+        gap: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    /* セクション余白調整 */
+    .vision-section,
+    .policy-section,
+    .profile-section {
+        padding: 60px 0;
+    }
+
+    /* ページヘッダー */
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    /* フッターCTAボタン縦並び */
+    .cta-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn-cta {
+        text-align: center;
+        justify-content: center;
     }
 }
 
