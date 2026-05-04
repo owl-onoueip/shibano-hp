@@ -13,34 +13,73 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
-        #map {
-            width: 100%;
-            height: 600px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
         .map-section {
             padding: 40px 0 80px;
             background: var(--c-white);
         }
-        .map-legend {
+        /* 2カラムレイアウト */
+        .map-layout {
             display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
         }
-        .legend-item {
+        .map-sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            background: #fff;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+        .sidebar-heading {
+            padding: 16px 20px 12px;
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            color: #1e3a8a;
+            border-bottom: 1px solid #f0f0f0;
+            background: #f8faff;
+        }
+        .sidebar-item {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--c-text);
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 18px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.18s;
         }
-        .legend-dot {
-            width: 14px;
-            height: 14px;
+        .sidebar-item:hover { background: #f0f4ff; }
+        .sidebar-item.active { background: #e8eeff; }
+        .sidebar-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             flex-shrink: 0;
+            margin-top: 4px;
+        }
+        .sidebar-info { flex: 1; min-width: 0; }
+        .sidebar-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+        .sidebar-badge {
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: white;
+            display: inline-block;
+        }
+        .map-main { flex: 1; min-width: 0; }
+        #map {
+            width: 100%;
+            height: 600px;
         }
         .map-note {
             margin-top: 20px;
@@ -50,6 +89,11 @@
             border-radius: 0 8px 8px 0;
             font-size: 0.9rem;
             color: #555;
+        }
+        @media (max-width: 768px) {
+            .map-layout { flex-direction: column; }
+            .map-sidebar { width: 100%; max-height: 220px; border-right: none; border-bottom: 1px solid #e5e7eb; }
+            #map { height: 400px; }
         }
         .leaflet-popup-content-wrapper {
             border-radius: 10px;
@@ -173,31 +217,17 @@
         <section class="map-section">
             <div class="container">
 
-                <!-- 凡例 -->
-                <div class="map-legend" data-aos="fade-up">
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background:#1e3a8a;"></div>
-                        <span>市政・行政</span>
+                <div class="map-layout" data-aos="fade-up">
+                    <!-- サイドバー（JSで生成） -->
+                    <div class="map-sidebar">
+                        <div class="sidebar-heading">ACHIEVEMENTS LIST</div>
+                        <div id="sidebar-list"></div>
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background:#f97316;"></div>
-                        <span>教育</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background:#16a34a;"></div>
-                        <span>福祉・医療</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background:#9333ea;"></div>
-                        <span>スポーツ・文化</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background:#ca8a04;"></div>
-                        <span>インフラ・まちづくり</span>
+                    <!-- マップ本体 -->
+                    <div class="map-main">
+                        <div id="map"></div>
                     </div>
                 </div>
-
-                <div id="map" data-aos="fade-up"></div>
 
                 <div class="map-note">
                     <i class="fas fa-info-circle" style="color:var(--c-primary);margin-right:8px;"></i>
@@ -319,49 +349,6 @@
                 desc: '地域に根ざした高齢者介護施設の立ち上げを支援。住み慣れた地域で安心して暮らせる環境を整備。',
                 streetview: 'https://www.google.com/maps/embed?pb=!4v1777845175255!6m8!1m7!1sS9ArgToYTPkuITw0HjQMOw!2m2!1d35.81163370023928!2d139.7813607183437!3f245.21318950902165!4f16.22577898146089!5f1.5366184664772655'
             },
-            // ── 参考（仮データ・要確認） ──
-            {
-                lat: 35.8321, lng: 139.8004,
-                color: '#1e3a8a', category: '市政・行政',
-                title: '草加市新庁舎建設',
-                year: '2023年完成',
-                desc: '分散していた行政機能を一棟に集約。合同庁舎化を議会で推進し、2023年3月引き渡し完了。'
-            },
-            {
-                lat: 35.8270, lng: 139.7930,
-                color: '#16a34a', category: '福祉・医療',
-                title: '草加市立病院 終末医療整備',
-                year: '推進中',
-                desc: '終末医療病棟の整備・緩和ケア体制の構築を推進。救急搬送100%受入れ体制の確立に取り組む。'
-            },
-            {
-                lat: 35.8244, lng: 139.8094,
-                color: '#9333ea', category: 'スポーツ・文化',
-                title: '草加松原 観光・文化活用',
-                year: '推進中',
-                desc: '日本百名道にも選ばれた草加松原の観光資源としての活用を推進。地域の誇りをまちの活力に。'
-            },
-            {
-                lat: 35.8350, lng: 139.8010,
-                color: '#f97316', category: '教育',
-                title: '市立小学校 土曜授業導入',
-                year: '実現済み',
-                desc: '土曜授業（年5回）と夏休み3日短縮で授業時間を確保。習熟度別学習の導入を推進。'
-            },
-            {
-                lat: 35.8200, lng: 139.8050,
-                color: '#16a34a', category: '福祉・医療',
-                title: '障がい者グループホーム整備',
-                year: '推進中',
-                desc: '障がい者の自立支援として男女別グループホームの建設・入所施設の整備を推進。'
-            },
-            {
-                lat: 35.8400, lng: 139.7950,
-                color: '#9333ea', category: 'スポーツ・文化',
-                title: '硬式野球場 整備検討',
-                year: '要望中',
-                desc: '県内20万人以上の市で唯一硬式野球場がない草加市。市民の声を受け整備を議会で訴え続けている。'
-            }
         ];
 
         // カスタムマーカー生成（テアドロップ型）
@@ -413,12 +400,13 @@
         });
         new HomeControl().addTo(map);
 
-        // ピン追加
+        // ピン追加 + サイドバー生成
+        const sidebarList = document.getElementById('sidebar-list');
         pins.forEach(pin => {
             const svHtml = pin.streetview
                 ? `<div class="popup-sv"><iframe src="${pin.streetview}" allowfullscreen loading="lazy"></iframe></div>`
                 : '';
-            L.marker([pin.lat, pin.lng], { icon: makeIcon(pin.color) })
+            const marker = L.marker([pin.lat, pin.lng], { icon: makeIcon(pin.color) })
                 .addTo(map)
                 .bindPopup(`
                     <div class="popup-inner">
@@ -429,6 +417,22 @@
                         ${svHtml}
                     </div>
                 `, { maxWidth: 300 });
+
+            const item = document.createElement('div');
+            item.className = 'sidebar-item';
+            item.innerHTML = `
+                <div class="sidebar-dot" style="background:${pin.color}"></div>
+                <div class="sidebar-info">
+                    <div class="sidebar-title">${pin.title}</div>
+                    <span class="sidebar-badge" style="background:${pin.color}">${pin.year}</span>
+                </div>`;
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+                item.classList.add('active');
+                map.flyTo([pin.lat, pin.lng], 15, { duration: 0.8 });
+                setTimeout(() => marker.openPopup(), 900);
+            });
+            sidebarList.appendChild(item);
         });
     </script>
 </body>
