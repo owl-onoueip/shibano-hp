@@ -1124,6 +1124,28 @@ img {
     transform: translateX(5px);
 }
 
+.btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.contact-status {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    min-height: 1.4em;
+}
+
+.contact-status.is-success {
+    color: #16a34a;
+}
+
+.contact-status.is-error {
+    color: #dc2626;
+}
+
 /* ==========================================================================
    Profile Social
    ========================================================================== */
