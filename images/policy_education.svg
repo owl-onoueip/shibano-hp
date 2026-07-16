@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#3b5bb5"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <!-- sun -->
+  <circle cx="640" cy="130" r="70" fill="url(#sun)" opacity="0.9"/>
+  <circle cx="640" cy="130" r="95" fill="none" stroke="#fbbf24" stroke-width="3" opacity="0.35"/>
+  <!-- distant hills -->
+  <path d="M0 430 Q200 360 420 420 T800 400 V600 H0 Z" fill="#16295f" opacity="0.7"/>
+  <!-- open book -->
+  <g>
+    <path d="M180 470 Q290 430 400 466 Q510 430 620 470 L620 505 Q510 468 400 502 Q290 468 180 505 Z" fill="#f4f0e6"/>
+    <path d="M400 466 L400 502" stroke="#cbbfa5" stroke-width="5"/>
+    <path d="M200 476 Q295 445 392 474 M208 488 Q297 460 392 486" stroke="#c9bda3" stroke-width="4" fill="none" opacity="0.8"/>
+    <path d="M408 474 Q505 445 600 476 M408 486 Q503 460 592 488" stroke="#c9bda3" stroke-width="4" fill="none" opacity="0.8"/>
+  </g>
+  <!-- tree growing from the book -->
+  <g>
+    <path d="M398 466 C398 400 388 360 396 300 C402 350 404 400 404 466 Z" fill="#8a5a2b"/>
+    <path d="M398 380 C370 360 352 340 344 312 M402 350 C428 336 446 318 452 292" stroke="#8a5a2b" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <circle cx="398" cy="252" r="66" fill="#2f9e56"/>
+    <circle cx="330" cy="292" r="44" fill="#37b163"/>
+    <circle cx="466" cy="286" r="46" fill="#37b163"/>
+    <circle cx="372" cy="212" r="38" fill="#4cc476"/>
+    <circle cx="438" cy="222" r="34" fill="#4cc476"/>
+    <!-- fruits -->
+    <circle cx="356" cy="268" r="9" fill="#f97316"/>
+    <circle cx="432" cy="252" r="9" fill="#f97316"/>
+    <circle cx="398" cy="300" r="9" fill="#f97316"/>
+  </g>
+  <!-- sprouting seedlings beside the book -->
+  <g stroke="#4cc476" stroke-width="7" fill="none" stroke-linecap="round">
+    <path d="M258 470 C258 452 250 444 240 440 M258 470 C258 452 266 444 276 440"/>
+    <path d="M548 470 C548 456 542 448 534 444 M548 470 C548 456 554 448 562 444"/>
+  </g>
+  <!-- birds -->
+  <g stroke="#f4f0e6" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85">
+    <path d="M180 150 q18 -16 36 0 q18 -16 36 0"/>
+    <path d="M260 200 q14 -12 28 0 q14 -12 28 0"/>
+  </g>
+</svg>

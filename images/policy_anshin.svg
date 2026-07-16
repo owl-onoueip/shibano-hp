@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#2c4aa0"/>
+    </linearGradient>
+    <linearGradient id="heart" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fb923c"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg2)"/>
+  <!-- soft glow rings -->
+  <circle cx="400" cy="280" r="190" fill="none" stroke="#f4f0e6" stroke-width="2" opacity="0.15"/>
+  <circle cx="400" cy="280" r="240" fill="none" stroke="#f4f0e6" stroke-width="2" opacity="0.08"/>
+  <!-- house -->
+  <g>
+    <path d="M400 130 L510 226 L484 226 L484 330 L316 330 L316 226 L290 226 Z" fill="#f4f0e6"/>
+    <rect x="376" y="270" width="48" height="60" fill="#1e3a8a"/>
+    <rect x="336" y="248" width="30" height="30" rx="4" fill="#93b4f5"/>
+    <rect x="434" y="248" width="30" height="30" rx="4" fill="#93b4f5"/>
+  </g>
+  <!-- heart above house -->
+  <path d="M400 118 C392 96 366 90 354 106 C342 122 350 142 400 172 C450 142 458 122 446 106 C434 90 408 96 400 118 Z" fill="url(#heart)"/>
+  <!-- cradling hands -->
+  <g fill="#f4b183">
+    <path d="M170 430 C210 380 268 362 320 372 L400 392 C420 398 424 424 402 430 L330 436 C368 440 410 442 452 436 L560 400 C596 390 622 412 606 440 C580 484 520 512 452 516 L330 516 C266 516 210 494 170 456 Z"/>
+    <path d="M630 430 C600 396 560 380 520 386 L470 396 C452 400 450 420 468 426 L520 434 C492 438 462 438 432 434 L360 420 C336 416 320 436 334 456 C360 492 414 512 470 512 L560 508 C600 504 630 480 644 452 Z" opacity="0.95"/>
+  </g>
+  <!-- gentle base arc -->
+  <path d="M120 560 Q400 500 680 560" stroke="#f97316" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.85"/>
+</svg>

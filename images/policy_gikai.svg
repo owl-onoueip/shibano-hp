@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16255c"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg3)"/>
+  <!-- rising light -->
+  <path d="M400 60 L470 240 L330 240 Z" fill="#fbbf24" opacity="0.12"/>
+  <!-- assembly building -->
+  <g>
+    <rect x="200" y="420" width="400" height="36" fill="#f4f0e6"/>
+    <rect x="220" y="300" width="360" height="120" fill="#e8e2d2"/>
+    <!-- columns -->
+    <g fill="#f4f0e6">
+      <rect x="244" y="300" width="34" height="120"/>
+      <rect x="312" y="300" width="34" height="120"/>
+      <rect x="380" y="300" width="34" height="120"/>
+      <rect x="448" y="300" width="34" height="120"/>
+      <rect x="516" y="300" width="34" height="120"/>
+    </g>
+    <!-- pediment -->
+    <path d="M400 210 L610 300 L190 300 Z" fill="#f4f0e6"/>
+    <circle cx="400" cy="268" r="18" fill="#f97316"/>
+    <rect x="180" y="456" width="440" height="20" fill="#d9d2bf"/>
+  </g>
+  <!-- scales of balance -->
+  <g stroke="#fbbf24" stroke-width="8" fill="none" stroke-linecap="round">
+    <line x1="400" y1="96" x2="400" y2="196"/>
+    <line x1="316" y1="120" x2="484" y2="120"/>
+  </g>
+  <circle cx="400" cy="90" r="12" fill="#fbbf24"/>
+  <g>
+    <path d="M316 120 L292 168 L340 168 Z" fill="none" stroke="#fbbf24" stroke-width="6"/>
+    <path d="M292 168 A 24 24 0 0 0 340 168" fill="url(#beam)"/>
+    <path d="M484 120 L460 168 L508 168 Z" fill="none" stroke="#fbbf24" stroke-width="6"/>
+    <path d="M460 168 A 24 24 0 0 0 508 168" fill="url(#beam)"/>
+  </g>
+  <!-- ground line + citizens dots -->
+  <path d="M120 540 H680" stroke="#f4f0e6" stroke-width="4" opacity="0.4" stroke-linecap="round"/>
+  <g fill="#f97316">
+    <circle cx="250" cy="520" r="10"/>
+    <circle cx="330" cy="520" r="10"/>
+    <circle cx="410" cy="520" r="10"/>
+    <circle cx="490" cy="520" r="10"/>
+    <circle cx="570" cy="520" r="10"/>
+  </g>
+</svg>
