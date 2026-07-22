@@ -468,7 +468,7 @@ img {
 }
 
 .visual-rect {
-    display: none;
+    display: none; /* Removed */
 }
 
 .vision-visual img {
@@ -477,7 +477,7 @@ img {
     object-fit: cover;
     border-radius: 8px;
     width: 100%;
-    box-shadow: 12px 12px 0 2px var(--c-secondary), 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* ==========================================================================
