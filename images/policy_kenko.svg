@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#163272"/>
+    </linearGradient>
+    <linearGradient id="cross" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fb923c"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg3)"/>
+  <!-- soft glow rings -->
+  <circle cx="400" cy="270" r="190" fill="none" stroke="#f4f0e6" stroke-width="2" opacity="0.12"/>
+  <circle cx="400" cy="270" r="250" fill="none" stroke="#f4f0e6" stroke-width="2" opacity="0.06"/>
+  <!-- Hospital building -->
+  <rect x="260" y="200" width="280" height="220" rx="6" fill="#f4f0e6"/>
+  <rect x="280" y="220" width="60" height="60" rx="4" fill="#93b4f5"/>
+  <rect x="460" y="220" width="60" height="60" rx="4" fill="#93b4f5"/>
+  <rect x="360" y="270" width="80" height="150" rx="4" fill="#1e3a8a"/>
+  <!-- Red Cross on building -->
+  <rect x="386" y="136" width="28" height="80" rx="6" fill="url(#cross)"/>
+  <rect x="360" y="162" width="80" height="28" rx="6" fill="url(#cross)"/>
+  <!-- Roof line -->
+  <rect x="250" y="194" width="300" height="14" rx="4" fill="#d1d5db"/>
+  <!-- Windows row -->
+  <rect x="284" y="300" width="50" height="40" rx="3" fill="#93b4f5" opacity="0.7"/>
+  <rect x="350" y="300" width="50" height="40" rx="3" fill="#93b4f5" opacity="0.7"/>
+  <rect x="460" y="300" width="50" height="40" rx="3" fill="#93b4f5" opacity="0.7"/>
+  <!-- Ground line -->
+  <rect x="200" y="420" width="400" height="10" rx="5" fill="#f97316" opacity="0.5"/>
+  <!-- Pulse / heartbeat line -->
+  <polyline points="120,480 200,480 230,420 260,540 300,440 340,480 400,480 430,430 460,530 500,480 580,480 640,480" stroke="#f97316" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+  <!-- gentle base arc -->
+  <path d="M120 560 Q400 510 680 560" stroke="#f97316" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.6"/>
+</svg>
