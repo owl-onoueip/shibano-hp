@@ -625,6 +625,16 @@ img {
     font-family: var(--f-serif);
 }
 
+.policy-card .policy-subtitle {
+    font-size: 1.1rem;
+    color: var(--c-secondary);
+    font-weight: 600;
+    margin-bottom: 10px;
+    opacity: 1 !important; /* overrides card hover/default opacity */
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
 .policy-card p {
     opacity: 0.8;
     font-size: 0.95rem;
