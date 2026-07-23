@@ -566,6 +566,10 @@ img {
     overflow: hidden;
 }
 
+.policy-section .section-heading {
+    color: var(--c-white);
+}
+
 .policy-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
